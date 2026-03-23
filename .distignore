@@ -1,0 +1,22 @@
+# Distribution ignore — files excluded from published package
+
+# Development files
+.git/
+.github/
+.vscode/
+.idea/
+node_modules/
+
+# Tests
+tests/
+vitest.config.ts
+
+# Development configs
+.editorconfig
+.eslintrc*
+.prettierrc*
+eslint.config.js
+tsconfig.json
+
+# Build artifacts
+*.log

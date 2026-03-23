@@ -1,0 +1,75 @@
+{
+  "name": "@stackborg/wp-ui-kits",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Shared React dashboard core for Stackborg WordPress plugins — API client, hooks, components, and design tokens.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles/index.css"
+  },
+  "files": [
+    "src/",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "FEATURES.md"
+  ],
+  "keywords": [
+    "wordpress",
+    "react",
+    "dashboard",
+    "ui-kit",
+    "stackborg",
+    "admin",
+    "plugin"
+  ],
+  "author": {
+    "name": "Stackborg",
+    "email": "contact@stackborg.com",
+    "url": "https://stackborg.com"
+  },
+  "homepage": "https://github.com/stackborg/wp-ui-kits#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stackborg/wp-ui-kits.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stackborg/wp-ui-kits/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "dependencies": {
+    "lucide-react": "^0.563.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "jsdom": "^28.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "^7.13.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0",
+    "vitest": "^4.0.18"
+  }
+}

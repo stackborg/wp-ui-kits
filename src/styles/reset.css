@@ -1,0 +1,41 @@
+/*
+ * WP Admin CSS Reset
+ * Normalizes WordPress admin quirks for plugin dashboards.
+ */
+
+/* Reset WordPress admin padding for our container */
+.sb-dashboard {
+  font-family: var(--sb-font-family);
+  font-size: var(--sb-font-size-base);
+  color: var(--sb-color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset WordPress default margins on common elements */
+.sb-dashboard *,
+.sb-dashboard *::before,
+.sb-dashboard *::after {
+  box-sizing: border-box;
+}
+
+.sb-dashboard h1,
+.sb-dashboard h2,
+.sb-dashboard h3,
+.sb-dashboard h4,
+.sb-dashboard p {
+  margin: 0;
+}
+
+.sb-dashboard button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Hide WP admin notices inside our dashboard */
+.sb-dashboard .notice,
+.sb-dashboard .updated,
+.sb-dashboard .update-nag {
+  display: none;
+}
