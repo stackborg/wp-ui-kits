@@ -8,7 +8,7 @@
  *   const { addons, loading, install, activate, deactivate, uninstall } = useAddons(api);
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useReducer, useEffect, useCallback } from 'react';
 import type { ApiClient } from '@/api/client';
 import type { AddonState, AddonListResponse, AddonActionResult } from '@/types/addon.d';
 
@@ -24,39 +24,57 @@ interface UseAddonsResult {
   update: (slug: string, zipUrl: string, checksum?: string) => Promise<AddonActionResult>;
 }
 
+interface AddonFetchState {
+  addons: AddonState[];
+  loading: boolean;
+  error: string | null;
+  trigger: number;
+}
+
+type AddonAction =
+  | { type: 'FETCH_START' }
+  | { type: 'FETCH_SUCCESS'; addons: AddonState[] }
+  | { type: 'FETCH_ERROR'; message: string }
+  | { type: 'REFETCH' };
+
+function addonReducer(state: AddonFetchState, action: AddonAction): AddonFetchState {
+  switch (action.type) {
+    case 'FETCH_START':
+      return { ...state, loading: true, error: null };
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false, addons: action.addons };
+    case 'FETCH_ERROR':
+      return { ...state, loading: false, error: action.message };
+    case 'REFETCH':
+      return { ...state, trigger: state.trigger + 1 };
+  }
+}
+
+const initialState: AddonFetchState = {
+  addons: [],
+  loading: true,
+  error: null,
+  trigger: 0,
+};
+
 export function useAddons(api: ApiClient): UseAddonsResult {
-  const [addons, setAddons] = useState<AddonState[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [trigger, setTrigger] = useState(0);
+  const [state, dispatch] = useReducer(addonReducer, initialState);
 
-  const refetch = useCallback(() => setTrigger((t) => t + 1), []);
+  const refetch = useCallback(() => dispatch({ type: 'REFETCH' }), []);
 
-  // Fetch addon list
+  // Fetch addon list on mount and when trigger changes
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
+    dispatch({ type: 'FETCH_START' });
 
     api
       .get<AddonListResponse>('/addons')
       .then((result) => {
-        if (!cancelled) {
-          setAddons(result.addons);
-          setLoading(false);
-        }
+        dispatch({ type: 'FETCH_SUCCESS', addons: result.addons });
       })
       .catch((err) => {
-        if (!cancelled) {
-          setError(err.message || 'Failed to load addons');
-          setLoading(false);
-        }
+        dispatch({ type: 'FETCH_ERROR', message: err.message || 'Failed to load addons' });
       });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [api, trigger]);
+  }, [api, state.trigger]);
 
   // Action helpers — perform action then refetch
   const postAction = useCallback(
@@ -104,5 +122,6 @@ export function useAddons(api: ApiClient): UseAddonsResult {
     [postAction]
   );
 
+  const { addons, loading, error } = state;
   return { addons, loading, error, refetch, install, uninstall, activate, deactivate, update };
 }

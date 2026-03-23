@@ -1,6 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import React from 'react';
 import { useWordPressData } from '@/hooks/useWordPressData';
 
 /**
@@ -12,18 +11,18 @@ import { useWordPressData } from '@/hooks/useWordPressData';
 describe('useWordPressData — Edge Cases', () => {
   beforeEach(() => {
     // Set up various data shapes on window
-    (window as any).sbCompleteData = {
+    (window as unknown as Record<string, unknown>).sbCompleteData = {
       apiUrl: 'https://example.com/wp-json/v1',
       nonce: 'abc123',
       version: '2.1.0',
       adminUrl: 'https://example.com/wp-admin/',
       siteTitle: 'My Site',
     };
-    (window as any).sbPartialData = {
+    (window as unknown as Record<string, unknown>).sbPartialData = {
       apiUrl: 'https://example.com/wp-json/v1',
       nonce: 'xyz',
     };
-    (window as any).sbEmptyData = {};
+    (window as unknown as Record<string, unknown>).sbEmptyData = {};
   });
 
   it('returns all fields from complete data', () => {

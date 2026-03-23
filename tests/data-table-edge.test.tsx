@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { DataTable } from '@/components/DataTable';
@@ -22,7 +22,7 @@ describe('DataTable — Edge Cases', () => {
     const data: TestRow[] = [
       { id: 1, name: null, email: 'test@test.com' },
     ];
-    render(<DataTable columns={columns} data={data as any} keyField="id" />);
+    render(<DataTable columns={columns} data={data as Record<string, unknown>[]} keyField="id" />);
     // Should render without crash — null becomes empty string
     expect(screen.getByText('test@test.com')).toBeInTheDocument();
   });
@@ -31,7 +31,7 @@ describe('DataTable — Edge Cases', () => {
     const data: TestRow[] = [
       { id: 1, name: 'Solo', email: 'solo@test.com' },
     ];
-    render(<DataTable columns={columns} data={data as any} keyField="id" />);
+    render(<DataTable columns={columns} data={data as Record<string, unknown>[]} keyField="id" />);
     expect(screen.getByText('Solo')).toBeInTheDocument();
   });
 
@@ -45,13 +45,13 @@ describe('DataTable — Edge Cases', () => {
       { key: 'name', label: 'Name', sortable: true },
       { key: 'email', label: 'Email' },
     ];
-    render(<DataTable columns={cols} data={data as any} keyField="id" />);
+    render(<DataTable columns={cols} data={data as Record<string, unknown>[]} keyField="id" />);
     expect(screen.getByText('User 0')).toBeInTheDocument();
     expect(screen.getByText('User 99')).toBeInTheDocument();
   });
 
   it('shows default empty message', () => {
-    render(<DataTable columns={columns} data={[] as any} keyField="id" />);
+    render(<DataTable columns={columns} data={[] as Record<string, unknown>[]} keyField="id" />);
     expect(screen.getByText('No data available')).toBeInTheDocument();
   });
 
@@ -63,7 +63,7 @@ describe('DataTable — Edge Cases', () => {
       { id: 1, name: 'Charlie' },
       { id: 2, name: 'Alpha' },
     ];
-    render(<DataTable columns={cols} data={data as any} keyField="id" />);
+    render(<DataTable columns={cols} data={data as Record<string, unknown>[]} keyField="id" />);
     const header = screen.getByText('Name');
     fireEvent.click(header);
     // Order should remain unchanged (Charlie first)
@@ -72,7 +72,7 @@ describe('DataTable — Edge Cases', () => {
   });
 
   it('renders all column headers even with empty data', () => {
-    render(<DataTable columns={columns} data={[] as any} keyField="id" />);
+    render(<DataTable columns={columns} data={[] as Record<string, unknown>[]} keyField="id" />);
     // Empty state shows message, not the table — headers not rendered
     expect(screen.queryByText('Name')).not.toBeInTheDocument();
   });
@@ -83,7 +83,7 @@ describe('DataTable — Edge Cases', () => {
       { id: 2, name: 'Alpha', email: 'a@test.com' },
       { id: 3, name: 'Bravo', email: 'b@test.com' },
     ];
-    render(<DataTable columns={columns} data={data as any} keyField="id" />);
+    render(<DataTable columns={columns} data={data as Record<string, unknown>[]} keyField="id" />);
     const headers = screen.getAllByRole('columnheader');
 
     // Sort by name
