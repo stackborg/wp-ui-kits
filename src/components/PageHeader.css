@@ -1,0 +1,71 @@
+/**
+ * PageHeader — page-level heading with optional description and actions.
+ *
+ * BEM naming convention: sb-page-header
+ * Uses CSS Custom Properties from tokens.css for theming.
+ *
+ * Override any property via specificity:
+ *   .my-plugin .sb-page-header { padding: 1rem; }
+ */
+
+.sb-page-header {
+  background: var(--sb-color-bg);
+  z-index: 10;
+  padding: 2rem 3rem 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+/* When NOT portaled — sticky to top of scrollable content */
+.sb-page-header--sticky {
+  position: sticky;
+  top: -2rem;
+  margin: 0 -3rem var(--sb-space-6) -3rem;
+}
+
+/* When portaled into #page-header-slot — relative positioning */
+.sb-page-header--portaled {
+  position: relative;
+}
+
+.sb-page-header__left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.sb-page-header__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--sb-radius-xl);
+  background: linear-gradient(135deg, var(--sb-color-primary) 0%, var(--sb-color-primary-hover) 100%);
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.sb-page-header__title {
+  font-size: var(--sb-font-size-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sb-page-header__description {
+  font-size: var(--sb-font-size-sm);
+  color: #64748b;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.sb-page-header__actions {
+  display: flex;
+  gap: var(--sb-space-2);
+}
