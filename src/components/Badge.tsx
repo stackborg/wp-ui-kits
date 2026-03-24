@@ -9,7 +9,7 @@
 import React from 'react';
 import type { ReactNode } from 'react';
 
-export type BadgeVariant = 'success' | 'error' | 'warning' | 'info' | 'neutral';
+export type BadgeVariant = 'success' | 'error' | 'danger' | 'warning' | 'info' | 'neutral';
 
 interface BadgeProps {
   children: ReactNode;
@@ -22,6 +22,7 @@ interface BadgeProps {
 const variantStyles: Record<BadgeVariant, { bg: string; color: string }> = {
   success: { bg: 'var(--sb-color-success-light, #f0fdf4)', color: 'var(--sb-color-success, #22c55e)' },
   error:   { bg: 'var(--sb-color-error-light, #fef2f2)', color: 'var(--sb-color-error, #ef4444)' },
+  danger:  { bg: 'var(--sb-color-error-light, #fef2f2)', color: 'var(--sb-color-error, #ef4444)' },
   warning: { bg: 'var(--sb-color-warning-light, #fffbeb)', color: 'var(--sb-color-warning, #f59e0b)' },
   info:    { bg: 'var(--sb-color-info-light, #eff6ff)', color: 'var(--sb-color-info, #3b82f6)' },
   neutral: { bg: 'var(--sb-color-bg-muted, #f3f4f6)', color: 'var(--sb-color-text-secondary, #6b7280)' },

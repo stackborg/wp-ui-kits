@@ -1,18 +1,24 @@
 /**
  * Button — shared button primitive with variants, sizes, and loading state.
  *
- * All Stackborg plugins use this component for consistent button styling.
- * Colors are controlled via CSS tokens so plugins can override branding.
+ * All Stackborg plugins use this component for consistent button structure.
+ * Styling is controlled via CSS classes so each plugin's CSS can theme it.
+ *
+ * The component outputs: sb-btn sb-btn--{variant} sb-btn--{size}
+ * Plugins override these via their own CSS (e.g. .sbrsp-btn--primary).
  *
  * Usage:
  *   <Button variant="primary" size="sm" onClick={fn}>Save</Button>
  *   <Button variant="danger" loading>Deleting...</Button>
+ *   <Button variant="outline" onClick={fn}>Cancel</Button>
+ *   <Button variant="link" onClick={fn}>Clear all</Button>
+ *   <Button variant="ghost" icon onClick={fn}><TrashIcon /></Button>
  */
 
 import React from 'react';
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'ghost';
+export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'ghost' | 'outline' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'style'> {
@@ -20,50 +26,41 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'sty
   size?: ButtonSize;
   loading?: boolean;
   fullWidth?: boolean;
+  /** Icon-only mode — compact square button */
+  icon?: boolean;
+  className?: string;
   children: ReactNode;
 }
 
-// CSS token-based variant styles
-const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
-  primary: {
-    backgroundColor: 'var(--sb-color-primary, #6366f1)',
-    color: '#fff',
-    border: 'none',
-  },
-  secondary: {
-    backgroundColor: 'var(--sb-color-bg-muted, #f3f4f6)',
-    color: 'var(--sb-color-text, #374151)',
-    border: '1px solid var(--sb-color-border, #e5e7eb)',
-  },
-  danger: {
-    backgroundColor: 'var(--sb-color-error-light, #fee2e2)',
-    color: 'var(--sb-color-error, #dc2626)',
-    border: 'none',
-  },
-  warning: {
-    backgroundColor: 'var(--sb-color-warning, #f59e0b)',
-    color: '#fff',
-    border: 'none',
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    color: 'var(--sb-color-text-secondary, #6b7280)',
-    border: 'none',
-  },
-};
-
-const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
-  sm: { padding: '4px 12px', fontSize: 'var(--sb-font-size-xs, 12px)' },
-  md: { padding: '6px 14px', fontSize: 'var(--sb-font-size-sm, 13px)' },
-  lg: { padding: '8px 18px', fontSize: 'var(--sb-font-size-base, 14px)' },
-};
+/**
+ * Build CSS class string for the button.
+ * Output: "sb-btn sb-btn--{variant} sb-btn--{size} [sb-btn--icon] [sb-btn--full] [className]"
+ *
+ * Plugin CSS maps these generic classes to its own design tokens, e.g.:
+ *   .sbrsp-btn.sb-btn--primary { background: var(--sbrsp-teal-600); }
+ */
+function buildClassName(
+  variant: ButtonVariant,
+  size: ButtonSize,
+  iconMode: boolean,
+  fullWidth: boolean,
+  className?: string,
+): string {
+  const parts = ['sb-btn', `sb-btn--${variant}`, `sb-btn--${size}`];
+  if (iconMode) parts.push('sb-btn--icon');
+  if (fullWidth) parts.push('sb-btn--full');
+  if (className) parts.push(className);
+  return parts.join(' ');
+}
 
 export function Button({
   variant = 'primary',
   size = 'md',
   loading = false,
   fullWidth = false,
+  icon: iconMode = false,
   disabled,
+  className,
   children,
   ...rest
 }: ButtonProps): React.ReactElement {
@@ -73,34 +70,10 @@ export function Button({
     <button
       {...rest}
       disabled={isDisabled}
-      style={{
-        ...variantStyles[variant],
-        ...sizeStyles[size],
-        borderRadius: 'var(--sb-radius-sm, 6px)',
-        fontWeight: 'var(--sb-font-weight-medium, 500)' as unknown as number,
-        cursor: isDisabled ? 'not-allowed' : 'pointer',
-        opacity: isDisabled ? 0.6 : 1,
-        transition: `all var(--sb-transition-fast, 150ms)`,
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '6px',
-        width: fullWidth ? '100%' : undefined,
-        lineHeight: 1.4,
-      }}
+      className={buildClassName(variant, size, iconMode, fullWidth, className)}
     >
       {loading && (
-        <span
-          style={{
-            width: '14px',
-            height: '14px',
-            border: '2px solid currentColor',
-            borderRightColor: 'transparent',
-            borderRadius: '50%',
-            display: 'inline-block',
-            animation: 'sb-spin 0.6s linear infinite',
-          }}
-        />
+        <span className="sb-btn__spinner" />
       )}
       {children}
     </button>

@@ -1,48 +1,25 @@
 /**
- * WordPress Data type definitions.
- *
- * Base interface for the WordPress-injected plugin data
- * that is available on window.sb{Plugin}Data.
+ * WordPress-specific type definitions for the dashboard kit.
  */
+
 export interface WordPressPluginData {
-  apiUrl: string;
+  apiBase: string;
   nonce: string;
+  pluginUrl: string;
   version: string;
-  adminUrl?: string;
-  siteTitle?: string;
-  siteUrl?: string;
+  [key: string]: unknown;
 }
 
-/**
- * Standard REST API response wrapper.
- */
-export interface ApiResponse<T> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data: T;
   message?: string;
 }
 
-/**
- * Paginated API response.
- */
-export interface PaginatedResponse<T> {
-  success: boolean;
+export interface PaginatedResponse<T = unknown> {
   data: T[];
-  meta: {
-    total: number;
-    page: number;
-    per_page: number;
-    pages: number;
-  };
+  total: number;
+  page: number;
+  per_page: number;
+  total_pages: number;
 }
-
-/**
- * Extend the global window interface per plugin
- * using module augmentation:
- *
- *   declare global {
- *     interface Window {
- *       sbMailPressData: WordPressPluginData & { customField: string };
- *     }
- *   }
- */

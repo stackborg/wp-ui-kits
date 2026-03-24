@@ -1,38 +1,45 @@
 /**
  * ConfirmDialog — modal confirmation dialog for destructive actions.
  *
- * Displays a centered overlay with configurable title, message,
- * confirm/cancel buttons. Uses CSS tokens for theming.
+ * Supports type-to-confirm pattern, loading state, and variant colors.
+ * Uses CSS tokens for consistent theming across plugins.
  *
  * Usage:
- *   <ConfirmDialog title="Delete?" message="This cannot be undone"
- *     onConfirm={handleDelete} onCancel={close} />
+ *   <ConfirmDialog open={show} title="Delete?" message="Cannot undo"
+ *     variant="danger" onConfirm={del} onCancel={close} />
+ *
+ *   <ConfirmDialog open={show} title="Nuclear Reset"
+ *     message="This will erase everything"
+ *     confirmPhrase="RESET" confirmInput={input}
+ *     onConfirmInputChange={setInput}
+ *     loading={isResetting} variant="danger"
+ *     onConfirm={reset} onCancel={close} />
  */
+
+import type { ReactNode } from 'react';
 
 interface ConfirmDialogProps {
   open: boolean;
   title: string;
-  message: string;
+  message: ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
-  variant?: 'danger' | 'default';
+  variant?: 'danger' | 'warning' | 'default';
+  loading?: boolean;
+  /** If set, user must type this exact phrase to enable confirm button */
+  confirmPhrase?: string;
+  confirmInput?: string;
+  onConfirmInputChange?: (value: string) => void;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-/**
- * ConfirmDialog — modal for destructive action confirmation.
- *
- * Usage:
- *   <ConfirmDialog
- *     open={showDialog}
- *     title="Delete Item?"
- *     message="This action cannot be undone."
- *     variant="danger"
- *     onConfirm={handleDelete}
- *     onCancel={() => setShowDialog(false)}
- *   />
- */
+const variantColors = {
+  danger: 'var(--sb-color-error, #dc2626)',
+  warning: 'var(--sb-color-warning, #f59e0b)',
+  default: 'var(--sb-color-primary, #6366f1)',
+};
+
 export function ConfirmDialog({
   open,
   title,
@@ -40,12 +47,18 @@ export function ConfirmDialog({
   confirmLabel = 'Confirm',
   cancelLabel = 'Cancel',
   variant = 'default',
+  loading = false,
+  confirmPhrase,
+  confirmInput,
+  onConfirmInputChange,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
   if (!open) return null;
 
-  const confirmColor = variant === 'danger' ? 'var(--sb-color-error)' : 'var(--sb-color-primary)';
+  const confirmColor = variantColors[variant];
+  const canConfirm = !confirmPhrase || confirmInput === confirmPhrase;
+  const isDisabled = !canConfirm || loading;
 
   return (
     <>
@@ -99,6 +112,40 @@ export function ConfirmDialog({
         }}>
           {message}
         </p>
+
+        {/* Type-to-confirm input */}
+        {confirmPhrase && (
+          <div style={{ marginTop: 'var(--sb-space-4)' }}>
+            <p style={{
+              fontSize: 'var(--sb-font-size-xs, 12px)',
+              color: 'var(--sb-color-text-muted)',
+              marginBottom: 'var(--sb-space-2)',
+            }}>
+              Type <strong style={{ color: 'var(--sb-color-text)', fontWeight: 600 }}>{confirmPhrase}</strong> to confirm:
+            </p>
+            <input
+              type="text"
+              value={confirmInput || ''}
+              onChange={(e) => onConfirmInputChange?.(e.target.value)}
+              placeholder={confirmPhrase}
+              autoFocus
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                borderRadius: 'var(--sb-radius-md, 8px)',
+                border: '1px solid var(--sb-color-border, #d1d5db)',
+                backgroundColor: 'var(--sb-color-bg, #fff)',
+                color: 'var(--sb-color-text, #111827)',
+                fontSize: 'var(--sb-font-size-sm, 13px)',
+                outline: 'none',
+                fontFamily: 'inherit',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+        )}
+
+        {/* Action buttons */}
         <div style={{
           display: 'flex',
           gap: 'var(--sb-space-3)',
@@ -107,6 +154,7 @@ export function ConfirmDialog({
         }}>
           <button
             onClick={onCancel}
+            disabled={loading}
             style={{
               padding: '0.5rem 1rem',
               borderRadius: 'var(--sb-radius-md)',
@@ -115,6 +163,7 @@ export function ConfirmDialog({
               color: 'var(--sb-color-text)',
               fontSize: 'var(--sb-font-size-sm)',
               fontWeight: 500,
+              cursor: loading ? 'not-allowed' : 'pointer',
               transition: `background var(--sb-transition-fast)`,
             }}
           >
@@ -122,6 +171,7 @@ export function ConfirmDialog({
           </button>
           <button
             onClick={onConfirm}
+            disabled={isDisabled}
             style={{
               padding: '0.5rem 1rem',
               borderRadius: 'var(--sb-radius-md)',
@@ -130,9 +180,25 @@ export function ConfirmDialog({
               color: '#fff',
               fontSize: 'var(--sb-font-size-sm)',
               fontWeight: 500,
+              cursor: isDisabled ? 'not-allowed' : 'pointer',
+              opacity: isDisabled ? 0.6 : 1,
               transition: `opacity var(--sb-transition-fast)`,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
             }}
           >
+            {loading && (
+              <span style={{
+                width: '14px',
+                height: '14px',
+                border: '2px solid currentColor',
+                borderRightColor: 'transparent',
+                borderRadius: '50%',
+                display: 'inline-block',
+                animation: 'sb-spin 0.6s linear infinite',
+              }} />
+            )}
             {confirmLabel}
           </button>
         </div>

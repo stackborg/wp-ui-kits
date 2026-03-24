@@ -37,7 +37,7 @@ export function useLicense(
         if (result.success) {
           onSuccess?.();
         } else {
-          setError(result.message);
+          setError(result.message ?? null);
         }
         return result;
       } catch (err: unknown) {

@@ -51,6 +51,12 @@ export { Badge } from '@/components/Badge';
 export type { BadgeVariant } from '@/components/Badge';
 export { Alert } from '@/components/Alert';
 export type { AlertVariant } from '@/components/Alert';
+export { Skeleton } from '@/components/Skeleton';
+export { Toggle } from '@/components/Toggle';
+export { Select } from '@/components/Select';
+export type { SelectSize } from '@/components/Select';
+export { Spinner } from '@/components/Spinner';
+export type { SpinnerSize } from '@/components/Spinner';
 
 // ── Types ──
 export type {
@@ -76,3 +82,4 @@ export { useLicense } from '@/hooks/useLicense';
 export { AddonsPage } from '@/components/AddonsPage';
 export { AddonCard } from '@/components/AddonCard';
 export { FeatureGate } from '@/components/FeatureGate';
+
