@@ -35,39 +35,36 @@ export function Card({ title, label, value, description, icon, iconClass, childr
   const heading = title || label;
   return (
     <div
-      className={className}
+      className={`sbrsp-card ${className}`.trim()}
       style={{
-        background: 'var(--sb-color-bg)',
-        border: '1px solid var(--sb-color-border)',
-        borderRadius: 'var(--sb-radius-lg)',
-        padding: noPadding ? 0 : 'var(--sb-space-6)',
-        boxShadow: 'var(--sb-shadow-sm)',
-        transition: `box-shadow var(--sb-transition-normal)`,
+        padding: noPadding ? 0 : undefined,
         animationDelay: delay ? `${delay}ms` : undefined,
         ...customStyle,
       }}
     >
       {(heading || icon) && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sb-space-3)', marginBottom: value ? 'var(--sb-space-3)' : 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginBottom: value ? '1rem' : 0 }}>
           {icon && (
             <div className={iconClass} style={{
               width: '2.5rem',
               height: '2.5rem',
-              borderRadius: 'var(--sb-radius-md)',
+              borderRadius: '0.625rem',
               background: 'var(--sb-color-primary-light)',
               color: 'var(--sb-color-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.5)',
             }}>
               {icon}
             </div>
           )}
           {heading && (
             <span style={{
-              fontSize: 'var(--sb-font-size-sm)',
-              color: 'var(--sb-color-text-secondary)',
-              fontWeight: 'var(--sb-font-weight-medium)' as unknown as number,
+              fontSize: '0.875rem',
+              color: '#334155',
+              fontWeight: 600,
+              letterSpacing: '-0.01em',
             }}>
               {heading}
             </span>
@@ -76,9 +73,13 @@ export function Card({ title, label, value, description, icon, iconClass, childr
       )}
       {value !== undefined && (
         <div style={{
-          fontSize: 'var(--sb-font-size-2xl)',
-          fontWeight: 'var(--sb-font-weight-bold)' as unknown as number,
-          color: 'var(--sb-color-text)',
+          fontSize: '2rem',
+          fontWeight: 800,
+          color: '#0f172a',
+          letterSpacing: '-0.02em',
+          lineHeight: 1.1,
+          marginTop: heading || icon ? '0.25rem' : '0.5rem',
+          marginBottom: description ? '0.25rem' : '0',
         }}>
           {value}
         </div>

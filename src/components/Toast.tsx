@@ -45,13 +45,15 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
   return (
     <div style={{
       position: 'fixed',
-      top: 'var(--sb-space-6)',
-      right: 'var(--sb-space-6)',
+      bottom: 'var(--sb-space-6)',
+      left: '50%',
+      transform: 'translateX(-50%)',
       zIndex: 99999,
       display: 'flex',
       flexDirection: 'column',
       gap: 'var(--sb-space-2)',
       maxWidth: '24rem',
+      alignItems: 'center',
     }}>
       {toasts.map((toast) => {
         const Icon = iconMap[toast.type];
@@ -66,8 +68,10 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
               borderRadius: 'var(--sb-radius-lg)',
               background: bgMap[toast.type],
               border: `1px solid ${colorMap[toast.type]}`,
-              boxShadow: 'var(--sb-shadow-lg)',
-              animation: 'sb-slide-in 0.3s ease-out',
+              boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+              animation: 'sb-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              width: '100%',
+              minWidth: '20rem',
             }}
           >
             <Icon size={18} color={colorMap[toast.type]} style={{ flexShrink: 0, marginTop: 1 }} />
@@ -76,6 +80,7 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
               fontSize: 'var(--sb-font-size-sm)',
               color: 'var(--sb-color-text)',
               lineHeight: 1.5,
+              fontWeight: 500,
             }}>
               {toast.message}
             </span>
@@ -87,15 +92,16 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
                 padding: 0,
                 color: 'var(--sb-color-text-muted)',
                 flexShrink: 0,
+                cursor: 'pointer',
               }}
               aria-label="Dismiss"
             >
-              <X size={14} />
+              <X size={16} />
             </button>
           </div>
         );
       })}
-      <style>{`@keyframes sb-slide-in { from { opacity: 0; transform: translateX(1rem); } to { opacity: 1; transform: translateX(0); } }`}</style>
+      <style>{`@keyframes sb-slide-up { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: translateY(0); } }`}</style>
     </div>
   );
 }

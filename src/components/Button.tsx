@@ -71,6 +71,7 @@ export function Button({
       {...rest}
       disabled={isDisabled}
       className={buildClassName(variant, size, iconMode, fullWidth, className)}
+      style={{ whiteSpace: 'nowrap', flexShrink: 0, ...rest.style }}
     >
       {loading && (
         <span className="sb-btn__spinner" />

@@ -21,23 +21,30 @@ interface PageHeaderProps {
  */
 export function PageHeader({ title, description, icon, actions }: PageHeaderProps) {
   return (
-    <div style={{
+    <div className="sbrsp-page-header" style={{
+      position: 'sticky',
+      top: '-2rem',
+      background: 'var(--sb-color-bg)',
+      zIndex: 10,
+      padding: '2rem 3rem 1.25rem 3rem',
+      margin: '0 -3rem var(--sb-space-6) -3rem',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      marginBottom: 'var(--sb-space-6)',
+      alignItems: 'center',
+      borderBottom: '1px solid rgba(229, 231, 235, 0.5)',
     }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--sb-space-3)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
         {icon && (
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '2.5rem',
-            height: '2.5rem',
-            borderRadius: 'var(--sb-radius-lg)',
-            background: 'var(--sb-color-primary-light)',
-            color: 'var(--sb-color-primary)',
+            width: '3.25rem',
+            height: '3.25rem',
+            borderRadius: 'var(--sb-radius-xl)',
+            background: 'linear-gradient(135deg, var(--sb-color-primary) 0%, var(--sb-color-primary-hover) 100%)',
+            boxShadow: '0 4px 14px rgba(13, 148, 136, 0.25), inset 0 1px 0 rgba(255,255,255,0.2)',
+            color: '#fff',
             flexShrink: 0,
           }}>
             {icon}
@@ -45,18 +52,21 @@ export function PageHeader({ title, description, icon, actions }: PageHeaderProp
         )}
         <div>
           <h1 style={{
-            fontSize: 'var(--sb-font-size-2xl)',
-            fontWeight: 'var(--sb-font-weight-bold)' as unknown as number,
-            color: 'var(--sb-color-text)',
+            fontSize: 'var(--sb-font-size-xl)',
+            fontWeight: 800,
+            letterSpacing: '-0.02em',
+            color: '#0f172a',
             margin: 0,
+            lineHeight: 1.2,
           }}>
             {title}
           </h1>
           {description && (
             <p style={{
               fontSize: 'var(--sb-font-size-sm)',
-              color: 'var(--sb-color-text-secondary)',
-              marginTop: 'var(--sb-space-1)',
+              color: '#64748b',
+              marginTop: '0.25rem',
+              fontWeight: 500,
             }}>
               {description}
             </p>
