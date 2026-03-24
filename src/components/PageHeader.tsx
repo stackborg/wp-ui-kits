@@ -8,6 +8,7 @@
  *   <PageHeader title="Settings" description="Manage plugin config" />
  */
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 interface PageHeaderProps {
   title: string;
@@ -20,14 +21,17 @@ interface PageHeaderProps {
  * Page Header — consistent page title + action buttons.
  */
 export function PageHeader({ title, description, icon, actions }: PageHeaderProps) {
-  return (
+  const portalTarget = typeof document !== 'undefined' ? document.getElementById('page-header-slot') : null;
+  const isPortaled = !!portalTarget;
+
+  const content = (
     <div className="sbrsp-page-header" style={{
-      position: 'sticky',
-      top: '-2rem',
+      position: isPortaled ? 'relative' : 'sticky',
+      top: isPortaled ? 'auto' : '-2rem',
       background: 'var(--sb-color-bg)',
       zIndex: 10,
-      padding: '2rem 3rem 1.25rem 3rem',
-      margin: '0 -3rem var(--sb-space-6) -3rem',
+      padding: isPortaled ? '2rem 3rem 1.25rem 3rem' : '2rem 3rem 1.25rem 3rem',
+      margin: isPortaled ? '0' : '0 -3rem var(--sb-space-6) -3rem',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -76,4 +80,6 @@ export function PageHeader({ title, description, icon, actions }: PageHeaderProp
       {actions && <div style={{ display: 'flex', gap: 'var(--sb-space-2)' }}>{actions}</div>}
     </div>
   );
+
+  return isPortaled ? createPortal(content, portalTarget) : content;
 }

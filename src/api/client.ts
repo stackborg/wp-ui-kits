@@ -82,7 +82,15 @@ export function createApiClient(dataKey: string): ApiClient {
       );
     }
 
-    return res.json();
+    const json = await res.json();
+
+    // Auto-unwrap Response::success() wrapper { success: true, data: {...} }
+    // so consumers get the inner payload directly
+    if (json && typeof json === 'object' && 'success' in json && 'data' in json) {
+      return json.data as T;
+    }
+
+    return json as T;
   }
 
   return {
