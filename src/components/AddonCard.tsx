@@ -239,15 +239,17 @@ export function AddonCard({
             >
               Activate
             </Button>
-            <Button
-              data-testid={`uninstall-btn-${slug}`}
-              variant="danger"
-              size="md"
-              loading={loading}
-              onClick={() => handleAction(onUninstall)}
-            >
-              Uninstall
-            </Button>
+            {onUninstall && (
+              <Button
+                data-testid={`uninstall-btn-${slug}`}
+                variant="danger"
+                size="md"
+                loading={loading}
+                onClick={() => handleAction(onUninstall)}
+              >
+                Uninstall
+              </Button>
+            )}
           </>
         )}
 
