@@ -1,6 +1,6 @@
 {
   "name": "@stackborg/wp-ui-kits",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "type": "module",
   "description": "Shared React dashboard core for Stackborg WordPress plugins — API client, hooks, components, and design tokens.",
