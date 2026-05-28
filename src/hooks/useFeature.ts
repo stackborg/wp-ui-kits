@@ -9,7 +9,7 @@
  */
 
 import { useMemo } from 'react';
-import type { AddonState } from '@/types/addon.d';
+import type { AddonState } from '../types/addon.d';
 
 interface UseFeatureResult {
   accessible: boolean;

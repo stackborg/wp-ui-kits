@@ -7,7 +7,7 @@
  * Usage:
  *   <ToastContainer toasts={toasts} onDismiss={dismiss} />
  */
-import type { Toast as ToastType } from '@/hooks/useToast';
+import type { Toast as ToastType } from '../hooks/useToast';
 import { CheckCircle, AlertCircle, Info, AlertTriangle, X } from 'lucide-react';
 
 interface ToastContainerProps {

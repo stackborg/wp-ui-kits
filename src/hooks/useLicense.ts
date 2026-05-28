@@ -9,8 +9,8 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { ApiClient } from '@/api/client';
-import type { LicenseActionResult } from '@/types/addon.d';
+import type { ApiClient } from '../api/client';
+import type { LicenseActionResult } from '../types/addon.d';
 
 interface UseLicenseResult {
   activate: (slug: string, licenseKey: string) => Promise<LicenseActionResult>;

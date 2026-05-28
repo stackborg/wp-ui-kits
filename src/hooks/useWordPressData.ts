@@ -7,7 +7,7 @@
  */
 
 import { useMemo } from 'react';
-import type { WordPressData } from '@/api/client';
+import type { WordPressData } from '../api/client';
 
 export function useWordPressData<T extends WordPressData = WordPressData>(
   dataKey: string

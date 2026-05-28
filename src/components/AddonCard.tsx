@@ -8,9 +8,9 @@
  */
 
 import React, { useState } from 'react';
-import { Button } from '@/components/Button';
-import { Badge } from '@/components/Badge';
-import { Alert } from '@/components/Alert';
+import { Button } from './Button';
+import { Badge } from './Badge';
+import { Alert } from './Alert';
 
 interface AddonCardProps {
   slug: string;

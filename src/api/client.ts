@@ -33,6 +33,15 @@ export class ApiError extends Error {
   }
 }
 
+function isWrappedSuccess(value: unknown): value is { success: boolean; data: unknown } {
+  return Boolean(
+    value &&
+    typeof value === 'object' &&
+    'success' in value &&
+    'data' in value
+  );
+}
+
 /** API client instance */
 export interface ApiClient {
   get: <T = unknown>(endpoint: string) => Promise<T>;
@@ -82,11 +91,20 @@ export function createApiClient(dataKey: string): ApiClient {
       );
     }
 
-    const json = await res.json();
+    if (res.status === 204) {
+      return undefined as T;
+    }
+
+    const text = await res.text();
+    if (text.trim() === '') {
+      return undefined as T;
+    }
+
+    const json = JSON.parse(text) as unknown;
 
     // Auto-unwrap Response::success() wrapper { success: true, data: {...} }
     // so consumers get the inner payload directly
-    if (json && typeof json === 'object' && 'success' in json && 'data' in json) {
+    if (isWrappedSuccess(json)) {
       return json.data as T;
     }
 
@@ -127,7 +145,21 @@ export function createApiClient(dataKey: string): ApiClient {
         throw new ApiError(error.message || 'Upload failed', res.status);
       }
 
-      return res.json() as Promise<T>;
+      if (res.status === 204) {
+        return undefined as T;
+      }
+
+      const text = await res.text();
+      if (text.trim() === '') {
+        return undefined as T;
+      }
+
+      const json = JSON.parse(text) as unknown;
+      if (isWrappedSuccess(json)) {
+        return json.data as T;
+      }
+
+      return json as T;
     },
   };
 }

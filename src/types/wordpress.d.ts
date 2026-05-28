@@ -3,10 +3,12 @@
  */
 
 export interface WordPressPluginData {
-  apiBase: string;
+  apiUrl: string;
   nonce: string;
-  pluginUrl: string;
   version: string;
+  adminUrl?: string;
+  siteTitle?: string;
+  siteUrl?: string;
   [key: string]: unknown;
 }
 
@@ -17,9 +19,12 @@ export interface ApiResponse<T = unknown> {
 }
 
 export interface PaginatedResponse<T = unknown> {
+  success: boolean;
   data: T[];
-  total: number;
-  page: number;
-  per_page: number;
-  total_pages: number;
+  meta: {
+    total: number;
+    page: number;
+    per_page: number;
+    pages: number;
+  };
 }

@@ -11,8 +11,8 @@
  */
 
 import React from 'react';
-import { useFeature } from '@/hooks/useFeature';
-import type { AddonState } from '@/types/addon.d';
+import { useFeature } from '../hooks/useFeature';
+import type { AddonState } from '../types/addon.d';
 
 interface FeatureGateProps {
   addons: AddonState[];

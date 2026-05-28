@@ -9,7 +9,8 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import type { ApiClient, ApiError } from '@/api/client';
+import type { ApiClient } from '../api/client';
+import { ApiError } from '../api/client';
 
 interface UseApiResult<T> {
   data: T | null;
@@ -45,7 +46,7 @@ export function useApi<T>(
       })
       .catch((err) => {
         if (!cancelled) {
-          setError(err);
+          setError(err instanceof ApiError ? err : new ApiError('Request failed', 0, err));
           setLoading(false);
         }
       });

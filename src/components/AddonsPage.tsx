@@ -9,10 +9,10 @@
  */
 
 import React, { useState, useMemo } from 'react';
-import type { AddonState } from '@/types/addon.d';
-import { AddonCard } from '@/components/AddonCard';
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
+import type { AddonState } from '../types/addon.d';
+import { AddonCard } from './AddonCard';
+import { Button } from './Button';
+import { Input } from './Input';
 
 type TabFilter = 'all' | 'active' | 'inactive';
 

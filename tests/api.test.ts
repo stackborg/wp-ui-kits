@@ -35,3 +35,43 @@ describe('ApiError', () => {
     expect(error.errors).toEqual(errors);
   });
 });
+
+describe('ApiClient request handling', () => {
+  it('handles 204 responses without JSON body', async () => {
+    (window as unknown as Record<string, unknown>).sbTestPluginData = {
+      apiUrl: '/wp-json/test',
+      nonce: 'nonce',
+      version: '1.0.0',
+    };
+
+    const originalFetch = global.fetch;
+    global.fetch = (async () =>
+      new Response(null, { status: 204 })) as typeof fetch;
+
+    const api = createApiClient('sbTestPluginData');
+    await expect(api.del('/empty')).resolves.toBeUndefined();
+
+    global.fetch = originalFetch;
+  });
+
+  it('unwraps upload success envelope', async () => {
+    (window as unknown as Record<string, unknown>).sbTestPluginData = {
+      apiUrl: '/wp-json/test',
+      nonce: 'nonce',
+      version: '1.0.0',
+    };
+
+    const originalFetch = global.fetch;
+    global.fetch = (async () =>
+      new Response(JSON.stringify({ success: true, data: { imported: 3 } }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })) as typeof fetch;
+
+    const api = createApiClient('sbTestPluginData');
+    const result = await api.upload<{ imported: number }>('/upload', new FormData());
+    expect(result).toEqual({ imported: 3 });
+
+    global.fetch = originalFetch;
+  });
+});

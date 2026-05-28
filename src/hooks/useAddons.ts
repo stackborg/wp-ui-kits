@@ -9,8 +9,8 @@
  */
 
 import { useReducer, useEffect, useCallback } from 'react';
-import type { ApiClient } from '@/api/client';
-import type { AddonState, AddonListResponse, AddonActionResult } from '@/types/addon.d';
+import type { ApiClient } from '../api/client';
+import type { AddonState, AddonListResponse, AddonActionResult } from '../types/addon.d';
 
 interface UseAddonsResult {
   addons: AddonState[];

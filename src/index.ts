@@ -14,56 +14,56 @@
  */
 
 // ── Bootstrap ──
-export { createDashboard } from '@/bootstrap';
+export { createDashboard } from './bootstrap';
 
 // ── API ──
-export { createApiClient, ApiError } from '@/api/client';
-export type { ApiClient, WordPressData } from '@/api/client';
+export { createApiClient, ApiError } from './api/client';
+export type { ApiClient, WordPressData } from './api/client';
 
 // ── Hooks ──
-export { useApi } from '@/hooks/useApi';
-export { useWordPressData } from '@/hooks/useWordPressData';
-export { useToast } from '@/hooks/useToast';
-export type { Toast } from '@/hooks/useToast';
+export { useApi } from './hooks/useApi';
+export { useWordPressData } from './hooks/useWordPressData';
+export { useToast } from './hooks/useToast';
+export type { Toast } from './hooks/useToast';
 
 // ── Layout ──
-export { DashboardShell } from '@/components/DashboardShell';
-export type { NavItem } from '@/components/DashboardShell';
+export { DashboardShell } from './components/DashboardShell';
+export type { NavItem } from './components/DashboardShell';
 
 // ── Components ──
-export { ErrorBoundary } from '@/components/ErrorBoundary';
-export { PageHeader } from '@/components/PageHeader';
-export { Card } from '@/components/Card';
-export { StatusBadge } from '@/components/StatusBadge';
-export { LoadingState } from '@/components/LoadingState';
-export { EmptyState } from '@/components/EmptyState';
-export { ToastContainer } from '@/components/Toast';
-export { ConfirmDialog } from '@/components/ConfirmDialog';
-export { DataTable } from '@/components/DataTable';
-export type { Column } from '@/components/DataTable';
+export { ErrorBoundary } from './components/ErrorBoundary';
+export { PageHeader } from './components/PageHeader';
+export { Card } from './components/Card';
+export { StatusBadge } from './components/StatusBadge';
+export { LoadingState } from './components/LoadingState';
+export { EmptyState } from './components/EmptyState';
+export { ToastContainer } from './components/Toast';
+export { ConfirmDialog } from './components/ConfirmDialog';
+export { DataTable } from './components/DataTable';
+export type { Column } from './components/DataTable';
 
 // ── Primitives ──
-export { Button } from '@/components/Button';
-export type { ButtonVariant, ButtonSize } from '@/components/Button';
-export { Input } from '@/components/Input';
-export type { InputSize } from '@/components/Input';
-export { Badge } from '@/components/Badge';
-export type { BadgeVariant } from '@/components/Badge';
-export { Alert } from '@/components/Alert';
-export type { AlertVariant } from '@/components/Alert';
-export { Skeleton } from '@/components/Skeleton';
-export { Toggle } from '@/components/Toggle';
-export { Select } from '@/components/Select';
-export type { SelectSize } from '@/components/Select';
-export { Spinner } from '@/components/Spinner';
-export type { SpinnerSize } from '@/components/Spinner';
+export { Button } from './components/Button';
+export type { ButtonVariant, ButtonSize } from './components/Button';
+export { Input } from './components/Input';
+export type { InputSize } from './components/Input';
+export { Badge } from './components/Badge';
+export type { BadgeVariant } from './components/Badge';
+export { Alert } from './components/Alert';
+export type { AlertVariant } from './components/Alert';
+export { Skeleton } from './components/Skeleton';
+export { Toggle } from './components/Toggle';
+export { Select } from './components/Select';
+export type { SelectSize } from './components/Select';
+export { Spinner } from './components/Spinner';
+export type { SpinnerSize } from './components/Spinner';
 
 // ── Types ──
 export type {
   WordPressPluginData,
   ApiResponse,
   PaginatedResponse,
-} from '@/types/wordpress.d';
+} from './types/wordpress.d';
 
 export type {
   AddonMeta,
@@ -71,15 +71,15 @@ export type {
   AddonListResponse,
   AddonActionResult,
   LicenseActionResult,
-} from '@/types/addon.d';
+} from './types/addon.d';
 
 // ── Addon Hooks ──
-export { useAddons } from '@/hooks/useAddons';
-export { useFeature } from '@/hooks/useFeature';
-export { useLicense } from '@/hooks/useLicense';
+export { useAddons } from './hooks/useAddons';
+export { useFeature } from './hooks/useFeature';
+export { useLicense } from './hooks/useLicense';
 
 // ── Addon Components ──
-export { AddonsPage } from '@/components/AddonsPage';
-export { AddonCard } from '@/components/AddonCard';
-export { FeatureGate } from '@/components/FeatureGate';
+export { AddonsPage } from './components/AddonsPage';
+export { AddonCard } from './components/AddonCard';
+export { FeatureGate } from './components/FeatureGate';
 
