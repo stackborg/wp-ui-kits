@@ -1,8 +1,0 @@
-@import './tokens.css';
-@import './reset.css';
-
-/* Button loading spinner animation */
-@keyframes sb-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}

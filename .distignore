@@ -1,4 +1,9 @@
 # Distribution ignore — files excluded from published package
+# Note: package.json "files" field is the primary whitelist for npm publish.
+# This file is used by WordPress plugin distribution tools.
+
+# Source code (only lib/ is needed)
+src/
 
 # Development files
 .git/
@@ -7,16 +12,38 @@
 .idea/
 node_modules/
 
+# Vite & Testing
+.vite/
+.vitest/
+coverage/
+dist/
+
 # Tests
 tests/
 vitest.config.ts
 
 # Development configs
+.distignore
 .editorconfig
+.gitignore
+.gitattributes
 .eslintrc*
 .prettierrc*
 eslint.config.js
 tsconfig.json
+tsconfig.build.json
+tsconfig.typecheck.json
+*.tsbuildinfo
 
-# Build artifacts
+# Dev docs
+DEVELOPER_GUIDE.md
+SECURITY.md
+
+# Build artifacts & logs
 *.log
+npm-debug.log*
+package-lock.json
+
+# Environment
+.env
+.env.local
