@@ -62,7 +62,7 @@ export function Card({ title, label, value, description, icon, iconClass, childr
           {heading && (
             <span style={{
               fontSize: '0.875rem',
-              color: '#334155',
+              color: 'var(--sb-color-text-secondary)',
               fontWeight: 600,
               letterSpacing: '-0.01em',
             }}>
@@ -75,7 +75,7 @@ export function Card({ title, label, value, description, icon, iconClass, childr
         <div style={{
           fontSize: '2rem',
           fontWeight: 800,
-          color: '#0f172a',
+          color: 'var(--sb-color-text)',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           marginTop: heading || icon ? '0.25rem' : '0.5rem',

@@ -6,3 +6,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* Pulse animation for skeleton loaders and attention elements */
+@keyframes sb-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Ping animation for notification indicators */
+@keyframes sb-ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

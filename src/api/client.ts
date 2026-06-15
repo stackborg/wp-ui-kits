@@ -10,16 +10,11 @@
  *   await api.post('/settings', { key: 'value' });
  */
 
-/** Shape of the WordPress-injected data on window */
-export interface WordPressData {
-  apiUrl: string;
-  nonce: string;
-  version: string;
-  adminUrl?: string;
-  siteTitle?: string;
-  siteUrl?: string;
-  [key: string]: unknown;
-}
+import type { WordPressPluginData as WordPressData } from '../types/wordpress.d';
+
+// Re-export so consumers can still import { WordPressData } from api/client
+export type { WordPressData };
+
 
 /** Standard API error */
 export class ApiError extends Error {

@@ -16,6 +16,7 @@
  *     onConfirm={reset} onCancel={close} />
  */
 
+import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 interface ConfirmDialogProps {
@@ -54,6 +55,18 @@ export function ConfirmDialog({
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
+  // Close dialog on Escape key press
+  useEffect(() => {
+    if (!open || loading) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onCancel();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [open, loading, onCancel]);
+
   if (!open) return null;
 
   const confirmColor = variantColors[variant];

@@ -26,8 +26,6 @@ export function createDashboard(
   rootId: string,
   App: AppComponent,
   options: {
-    /** Import CSS before mounting. Default: none. */
-    styles?: string[];
     /** Disable React.StrictMode. Default: false. */
     disableStrictMode?: boolean;
   } = {}
