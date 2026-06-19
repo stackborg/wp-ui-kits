@@ -105,3 +105,5 @@ export function Toggle({
     </div>
   );
 }
+
+Toggle.displayName = 'Toggle';

@@ -94,3 +94,5 @@ export function DashboardShell({
     </div>
   );
 }
+
+DashboardShell.displayName = 'DashboardShell';

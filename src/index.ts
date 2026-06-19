@@ -68,6 +68,7 @@ export type {
 export type {
   AddonMeta,
   AddonState,
+  AddonFeatureInfo,
   AddonListResponse,
   AddonActionResult,
   LicenseActionResult,

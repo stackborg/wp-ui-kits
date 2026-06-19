@@ -67,3 +67,5 @@ export function LoadingState({ rows = 3, spinner = false, message }: LoadingStat
     </div>
   );
 }
+
+LoadingState.displayName = 'LoadingState';

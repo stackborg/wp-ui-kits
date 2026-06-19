@@ -35,7 +35,7 @@ export function Card({ title, label, value, description, icon, iconClass, childr
   const heading = title || label;
   return (
     <div
-      className={`sbrsp-card ${className}`.trim()}
+      className={`sb-card ${className}`.trim()}
       style={{
         padding: noPadding ? 0 : undefined,
         animationDelay: delay ? `${delay}ms` : undefined,
@@ -97,3 +97,5 @@ export function Card({ title, label, value, description, icon, iconClass, childr
     </div>
   );
 }
+
+Card.displayName = 'Card';

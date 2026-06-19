@@ -236,3 +236,5 @@ export function AddonsPage({
     </div>
   );
 }
+
+AddonsPage.displayName = 'AddonsPage';

@@ -292,3 +292,5 @@ export function AddonCard({
     </div>
   );
 }
+
+AddonCard.displayName = 'AddonCard';

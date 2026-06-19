@@ -45,7 +45,16 @@ npm install @stackborg/wp-ui-kits
 
 ## Usage
 
-See **[DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md)** for complete API reference and examples.
+See **[DEVELOPER_GUIDE.md](/DEVELOPER_GUIDE.md)** for ecosystem-wide architecture guide.
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Component Reference](docs/component-reference.md) | All components, hooks, API client, and bootstrap |
+| [Developer Guide](/DEVELOPER_GUIDE.md) | Architecture and patterns guide |
+| [Contributing](CONTRIBUTING.md) | How to contribute |
+| [Changelog](CHANGELOG.md) | Version history |
 
 ## Development
 

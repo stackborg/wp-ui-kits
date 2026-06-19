@@ -28,3 +28,5 @@ export function Skeleton({ className, style, ...props }: SkeletonProps) {
     />
   );
 }
+
+Skeleton.displayName = 'Skeleton';

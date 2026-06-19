@@ -88,3 +88,5 @@ export function Input({
     </div>
   );
 }
+
+Input.displayName = 'Input';

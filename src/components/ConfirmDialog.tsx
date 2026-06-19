@@ -223,3 +223,5 @@ export function ConfirmDialog({
     </>
   );
 }
+
+ConfirmDialog.displayName = 'ConfirmDialog';

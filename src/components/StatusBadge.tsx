@@ -7,8 +7,7 @@
  * Usage:
  *   <StatusBadge label="Active" variant="success" />
  */
-
-type BadgeVariant = 'success' | 'error' | 'danger' | 'warning' | 'info' | 'neutral';
+import type { BadgeVariant } from './Badge';
 
 interface StatusBadgeProps {
   label: string;
@@ -71,3 +70,5 @@ export function StatusBadge({ label, variant = 'neutral', pulse = false, classNa
     </span>
   );
 }
+
+StatusBadge.displayName = 'StatusBadge';

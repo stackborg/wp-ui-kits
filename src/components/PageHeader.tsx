@@ -55,3 +55,5 @@ export function PageHeader({ title, description, icon, actions, className }: Pag
 
   return isPortaled ? createPortal(content, portalTarget) : content;
 }
+
+PageHeader.displayName = 'PageHeader';

@@ -39,3 +39,5 @@ export function Spinner({ size = 'md', className }: SpinnerProps): React.ReactEl
     />
   );
 }
+
+Spinner.displayName = 'Spinner';

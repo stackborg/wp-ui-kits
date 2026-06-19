@@ -37,3 +37,5 @@ export function FeatureGate({
 
   return fallback ? <>{fallback}</> : null;
 }
+
+FeatureGate.displayName = 'FeatureGate';
